@@ -16,9 +16,61 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
 </head>
 <body>
+  <script>
+    // intro tampil sekali per tab; ?intro memaksa tampil lagi. Gerak dikurangi = langsung lewati.
+    (function () {
+      var seen = false;
+      try { seen = sessionStorage.getItem("aura-intro") === "1"; } catch (e) {}
+      var force = /[?&]intro\b/.test(location.search);
+      var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if ((seen || calm) && !force) document.documentElement.classList.add("no-intro");
+      else document.documentElement.classList.add("intro-lock");
+    })();
+  </script>
+
+  <!-- ============ INTRO BUMPER ============ -->
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Intro Aura Project">
+    <div class="intro-leak" aria-hidden="true"></div>
+    <div class="intro-scan" aria-hidden="true"></div>
+
+    <div class="intro-hud mono" aria-hidden="true">
+      <span><i class="intro-rec"></i> <span id="introState">STBY</span></span>
+      <span id="introTc">00:00:00:00</span>
+    </div>
+    <div class="intro-hud intro-hud--b mono" aria-hidden="true">
+      <span>AURA PROJECT · BUMPER 01</span>
+      <span id="introPct">000%</span>
+    </div>
+
+    <div class="intro-stage" id="introStage" aria-hidden="true">
+      <svg class="intro-ring" viewBox="0 0 200 200">
+        <circle class="ring-ticks" cx="100" cy="100" r="92" pathLength="120" />
+        <circle class="ring-track" cx="100" cy="100" r="84" />
+        <circle class="ring-prog" cx="100" cy="100" r="84" pathLength="1" />
+      </svg>
+      <svg class="intro-mark" viewBox="340 330 570 410">
+        <path class="a-fill" d="M580 352 H678 L878 718 H770 L627 440 L480 718 H368 Z" />
+        <path class="a-stroke" pathLength="1" d="M580 352 H678 L878 718 H770 L627 440 L480 718 H368 Z" />
+        <path class="a-play" d="M584 552 Q580 548 580 556 V686 Q580 694 587 690 L686 627 Q692 621 686 616 Z" />
+      </svg>
+    </div>
+
+    <div class="intro-word" aria-hidden="true">
+      <span class="w-main"><b>A</b><b>U</b><b>R</b><b>A</b></span>
+      <span class="w-sub"><b>P</b><b>R</b><b>O</b><b>J</b><b>E</b><b>C</b><b>T</b></span>
+    </div>
+
+    <button class="intro-hold" id="introHold" type="button">
+      <span class="hold-dot" aria-hidden="true"></span>
+      <span class="hold-txt">Tekan &amp; tahan untuk merekam</span>
+    </button>
+    <button class="intro-skip mono" id="introSkip" type="button">Lewati intro →</button>
+
+    <div class="intro-wipe" aria-hidden="true"></div>
+  </div>
   <a class="skip" href="#karya">Lewati ke karya</a>
 
   <!-- ============ TOP BAR / HUD ============ -->
@@ -254,7 +306,8 @@
     </div>
   </dialog>
 
-  <script src="js/data.js?v=4"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/intro.js?v=5"></script>
+  <script src="js/data.js?v=5"></script>
+  <script src="js/main.js?v=5"></script>
 </body>
 </html>

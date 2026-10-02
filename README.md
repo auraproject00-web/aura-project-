@@ -17,6 +17,11 @@ Buka http://localhost:8000
 Foto taruh di `assets/img/`. Sebaiknya lebar maks. 2000px dan ukuran di bawah 400 KB.
 
 ## Bagian halaman
+0. Intro bumper: tekan & tahan (mouse, sentuh, atau Spasi) untuk "merekam" logo A.
+   Dilepas sebelum penuh = mundur. Penuh = AURA/PROJECT muncul, lalu segitiga play
+   menyapu layar. Tampil sekali per tab; tambahkan `?intro` di URL untuk melihatnya lagi.
+   Ada tombol "Lewati intro" dan tombol Esc, dan intro otomatis dilewati kalau
+   pengunjung mengaktifkan "kurangi gerakan".
 1. Hero viewfinder: area tajam mengikuti kursor, angka ISO/shutter/f berubah.
 2. Indeks karya: filter Foto/Video, pratinjau melayang saat hover, detail di lightbox.
 3. Contact sheet: film strip yang bisa diseret, frame ditandai lingkaran grease pencil.
