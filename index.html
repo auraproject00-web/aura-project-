@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=5" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
 </head>
 <body>
   <script>
@@ -26,6 +26,7 @@
       try { seen = sessionStorage.getItem("aura-intro") === "1"; } catch (e) {}
       var force = /[?&]intro\b/.test(location.search);
       var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!calm) document.documentElement.classList.add("hero-pending");
       if ((seen || calm) && !force) document.documentElement.classList.add("no-intro");
       else document.documentElement.classList.add("intro-lock");
     })();
@@ -306,8 +307,8 @@
     </div>
   </dialog>
 
-  <script src="js/intro.js?v=5"></script>
-  <script src="js/data.js?v=5"></script>
-  <script src="js/main.js?v=5"></script>
+  <script src="js/intro.js?v=6"></script>
+  <script src="js/data.js?v=6"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

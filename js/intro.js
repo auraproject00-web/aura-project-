@@ -9,6 +9,7 @@
     return;
   }
 
+  window.AURA_INTRO = "pending";
   const hold = document.getElementById("introHold");
   const skip = document.getElementById("introSkip");
   const tc = document.getElementById("introTc");
@@ -34,14 +35,15 @@
   }
 
   function frame(now) {
-    const dt = Math.min(64, now - last);
+    const dt = Math.min(250, now - last); // tetap akurat di perangkat yang lambat
     last = now;
     if (!done) {
       p += holding ? dt / FILL_MS : -dt / REWIND_MS;
       p = Math.max(0, Math.min(1, p));
-      // timecode hanya jalan saat merekam; mundur saat rewind
-      frames = Math.max(0, frames + (holding ? 1 : p > 0 ? -2 : 0));
-      tc.textContent = `00:00:${pad(Math.floor(frames / 25) % 60)}:${pad(frames % 25)}`;
+      // timecode hanya jalan saat merekam; mundur saat rewind (25 fps)
+      frames = Math.max(0, frames + (holding ? dt : p > 0 ? -2 * dt : 0) / 40);
+      const f = Math.floor(frames);
+      tc.textContent = `00:00:${pad(Math.floor(f / 25) % 60)}:${pad(f % 25)}`;
       pct.textContent = String(Math.round(p * 100)).padStart(3, "0") + "%";
       intro.style.setProperty("--p", p.toFixed(4));
       if (p >= 1) finish();
@@ -62,6 +64,9 @@
   }
 
   function close() {
+    if (window.AURA_INTRO === "done") return;
+    window.AURA_INTRO = "done";
+    window.dispatchEvent(new Event("aura:intro-done"));
     try { sessionStorage.setItem("aura-intro", "1"); } catch (e) {}
     root.classList.remove("intro-lock");
     intro.classList.add("is-gone");

@@ -113,6 +113,84 @@
     requestAnimationFrame(drift);
   }
 
+  /* ---------- HERO: huruf bermunculan acak setelah intro ---------- */
+  const root = document.documentElement;
+  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#·+";
+
+  // teks kecil: karakter acak yang "terpecahkan" satu per satu
+  function scramble(el, delay = 0, dur = 900) {
+    const final = el.textContent;
+    const at = [...final].map(() => delay + Math.random() * dur);
+    const t0 = performance.now();
+    el.textContent = final.replace(/\S/g, " ");
+    const step = (now) => {
+      const t = now - t0;
+      let doneAll = true;
+      el.textContent = [...final].map((c, i) => {
+        if (c === " " || t >= at[i]) return c;
+        doneAll = false;
+        return t < delay ? " " : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      }).join("");
+      if (!doneAll) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // judul: pecah jadi huruf (per kata tetap utuh supaya tidak patah baris di tengah kata)
+  function splitLetters(el) {
+    el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
+    const letters = [];
+    const walk = (node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.append(" "); return; }
+            const word = document.createElement("span");
+            word.className = "hw";
+            word.setAttribute("aria-hidden", "true");
+            [...part].forEach((ch) => {
+              const s = document.createElement("span");
+              s.className = "hl";
+              s.textContent = ch;
+              word.append(s);
+              letters.push(s);
+            });
+            frag.append(word);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== "BR") {
+          walk(n);
+        }
+      });
+    };
+    walk(el);
+    return letters;
+  }
+
+  function heroEnter() {
+    root.classList.remove("hero-pending");
+    if (reduce) return;
+    const letters = splitLetters($(".hero-title"));
+    // urutan acak, rapat di awal lalu melambat
+    const order = letters.map((_, i) => i).sort(() => Math.random() - 0.5);
+    order.forEach((idx, k) => {
+      const s = letters[idx];
+      s.style.setProperty("--d", Math.round(Math.pow(k / letters.length, 1.35) * 1100) + "ms");
+      s.style.setProperty("--r", (Math.random() * 24 - 12).toFixed(1) + "deg");
+      s.style.setProperty("--y", (0.25 + Math.random() * 0.5).toFixed(2) + "em");
+    });
+    scramble($(".hero .eyebrow"), 0, 800);
+    $$(".hud dt").forEach((dt, i) => scramble(dt, 200 + i * 90, 500));
+    scramble($(".hero-hint"), 1300, 700);
+    void hero.offsetWidth;
+    hero.classList.add("hero-in");
+  }
+
+  if (window.AURA_INTRO === "pending") addEventListener("aura:intro-done", heroEnter, { once: true });
+  else heroEnter();
+
   /* ---------- INDEKS KARYA ---------- */
   const list = $("#indexList");
   const peek = $("#peek");
