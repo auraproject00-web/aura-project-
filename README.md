@@ -27,5 +27,9 @@ Foto taruh di `assets/img/`. Sebaiknya lebar maks. 2000px dan ukuran di bawah 40
 
 Mengikuti `prefers-reduced-motion`, bisa dipakai dengan keyboard, dan responsif sampai 360px.
 
+## Setelah mengubah CSS/JS
+Naikkan angka `?v=` di `index.html` (mis. `style.css?v=4` → `?v=5`)
+supaya browser pengunjung tidak memakai file lama dari cache.
+
 ## Hosting (GitHub Pages)
 Settings → Pages → Source: *Deploy from a branch* → `main` / `(root)`.
