@@ -33,7 +33,7 @@
     <nav class="nav" aria-label="Navigasi utama">
       <a href="#karya">Karya</a>
       <a href="#sheet">Contact Sheet</a>
-      <a href="#paket">Paket</a>
+      <a href="#brief">Brief</a>
       <a href="#proses">Proses</a>
       <a href="#kontak" class="nav-cta">Kontak</a>
     </nav>
@@ -62,7 +62,7 @@
         </h1>
         <p class="hero-sub">Dokumentasi acara, foto produk, wedding, dan video brand. Dikerjakan oleh tim kecil, jadi yang datang ke lokasi adalah orang yang juga mengedit hasilnya.</p>
         <div class="hero-actions">
-          <a class="btn btn--solid" href="#paket">Rakit paket &amp; estimasi</a>
+          <a class="btn btn--solid" href="#brief">Susun brief</a>
           <a class="btn btn--line" href="#karya">Lihat karya</a>
         </div>
       </div>
@@ -112,11 +112,11 @@
     </section>
 
     <!-- ============ PAKET / ESTIMATOR ============ -->
-    <section class="section" id="paket" aria-labelledby="paket-h">
+    <section class="section" id="brief" aria-labelledby="brief-h">
       <header class="sec-head">
         <span class="sec-no mono">03</span>
-        <h2 id="paket-h">Rakit paket</h2>
-        <p class="sec-note">Pilih kebutuhanmu, angka di kanan berubah langsung. Estimasi mulai dari. Harga final kami kirim setelah membaca brief.</p>
+        <h2 id="brief-h">Susun brief</h2>
+        <p class="sec-note">Klik-klik saja, nggak perlu ngetik panjang. Pesannya tersusun sendiri di papan slate, tinggal kirim. Harga kami bahas langsung setelah baca kebutuhanmu.</p>
       </header>
 
       <form class="builder" id="builder" onsubmit="return false">
@@ -155,15 +155,16 @@
         <aside class="slate" aria-live="polite">
           <div class="slate-sticks" aria-hidden="true"></div>
           <div class="slate-body">
-            <div class="slate-row mono"><span>PROD.</span><span id="sLayanan">—</span></div>
-            <div class="slate-row mono"><span>DURASI</span><span id="sQty">—</span></div>
-            <div class="slate-row mono"><span>TAKE</span><span id="sAdd">—</span></div>
-            <div class="slate-price">
-              <span class="mono slate-lbl">Estimasi mulai</span>
-              <strong id="sHarga">Rp 0</strong>
+            <div class="slate-scene">
+              <span class="mono slate-lbl">Scene</span>
+              <strong id="sLayanan">—</strong>
             </div>
+            <div class="slate-row mono"><span>DURASI</span><span id="sQty">—</span></div>
+            <div class="slate-row mono"><span>TAMBAHAN</span><span id="sAdd">—</span></div>
+            <div class="slate-row mono"><span>TANGGAL</span><span id="sTgl">—</span></div>
+            <div class="slate-row mono"><span>REF. FRAME</span><span id="sRef">—</span></div>
             <a class="btn btn--solid btn--block" id="sendBrief" href="#" target="_blank" rel="noopener">Kirim brief</a>
-            <p class="slate-fine">Belum termasuk transport &amp; akomodasi luar kota. DP 30% untuk mengunci tanggal.</p>
+            <p class="slate-fine">Harga dan jadwal kami balas langsung lewat chat/email, menyesuaikan kebutuhanmu.</p>
           </div>
         </aside>
       </form>

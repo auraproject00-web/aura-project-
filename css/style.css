@@ -140,7 +140,7 @@ h1, h2, h3 { font-weight: 400; margin: 0; }
 }
 .hero-img {
   position: absolute; inset: -4%;
-  background: url("../assets/img/senja.jpg") center 30% / cover no-repeat;
+  background: url("../assets/img/malam.jpg") center 60% / cover no-repeat;
 }
 .hero-img--soft { filter: blur(18px) saturate(0.7) brightness(0.62); transform: scale(1.04); }
 .hero-img--sharp {
@@ -258,6 +258,7 @@ h1, h2, h3 { font-weight: 400; margin: 0; }
 .row:hover .row-arrow { color: var(--safe); transform: translate(3px, -3px); }
 .index.has-hover .row:not(:hover) { opacity: 0.38; }
 .row.is-out { display: none; }
+.index-empty { padding: 28px 0; color: var(--faint); border-top: 1px solid var(--line); }
 .row-thumb { display: none; }
 
 .peek {
@@ -411,9 +412,10 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .slate-row { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); }
 .slate-row span:first-child { color: var(--faint); }
 .slate-row span:last-child { text-align: right; }
-.slate-price { padding: 22px 0 20px; }
-.slate-lbl { color: var(--faint); display: block; margin-bottom: 4px; }
-.slate-price strong { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4vw, 3.2rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.slate-scene { padding: 6px 0 16px; border-bottom: 1px solid var(--line); }
+.slate-lbl { color: var(--faint); display: block; margin-bottom: 6px; }
+.slate-scene strong { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.4vw, 2.7rem); line-height: 1.05; display: block; }
+.slate-body .btn { margin-top: 22px; }
 .slate-fine { font-size: 0.78rem; color: var(--faint); margin: 14px 0 0; }
 
 /* ---------------- STEPS ---------------- */
@@ -508,7 +510,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 @media (max-width: 760px) {
   :root { --bar-h: 56px; }
   .rec { display: none; }
-  .nav a:not(.nav-cta):not([href="#paket"]) { display: none; }
+  .nav a:not(.nav-cta):not([href="#brief"]) { display: none; }
   .hud { top: auto; bottom: auto; right: var(--gut); top: calc(var(--bar-h) + 26px); gap: 6px; }
   .hud .hud-meter, .hero-hint { display: none; }
   .hero { cursor: auto; }

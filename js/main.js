@@ -6,7 +6,6 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const rupiah = (n) => "Rp " + Math.round(n).toLocaleString("id-ID");
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const store = {
     get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
@@ -58,7 +57,7 @@
     }),
     { rootMargin: "-45% 0px -50% 0px" }
   );
-  ["karya", "sheet", "paket", "proses", "kontak"].forEach((id) => spy.observe($("#" + id)));
+  ["karya", "sheet", "brief", "proses", "kontak"].forEach((id) => spy.observe($("#" + id)));
 
   /* ---------- HERO: rack focus + HUD ---------- */
   const hero = $("#hero");
@@ -141,6 +140,17 @@
       const f = chip.dataset.filter;
       $$(".chip").forEach((c) => { c.classList.toggle("is-on", c === chip); c.setAttribute("aria-pressed", c === chip); });
       $$(".row", list).forEach((r) => r.classList.toggle("is-out", f !== "semua" && r.dataset.j !== f));
+      const none = !$$(".row:not(.is-out)", list).length;
+      let empty = $(".index-empty", list);
+      if (none && !empty) {
+        empty = document.createElement("p");
+        empty.className = "index-empty mono";
+        list.append(empty);
+      }
+      if (empty) {
+        empty.hidden = !none;
+        empty.textContent = `Belum ada karya ${f} yang dipajang. Tanya contohnya langsung lewat kontak.`;
+      }
     })
   );
 
@@ -277,59 +287,50 @@
     syncPicks();
   });
 
-  /* ---------- RAKIT PAKET ---------- */
-  const H = D.harga;
+  /* ---------- SUSUN BRIEF ---------- */
+  const B = D.brief;
   const optL = $("#optLayanan"), optT = $("#optTambah");
   const qty = $("#qty"), qtyOut = $("#qtyOut");
   const slate = $(".slate");
+  const tglFmt = (v) => new Date(v + "T00:00").toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
 
-  optL.innerHTML = H.layanan
+  optL.innerHTML = B.layanan
     .map((l, i) => `
       <label class="opt-card">
         <input type="radio" name="layanan" value="${l.id}"${i === 0 ? " checked" : ""} />
-        <span>${esc(l.nama)}<small>mulai ${rupiah(l.dasar)}</small></span>
+        <span>${esc(l.nama)}<small>per ${esc(l.satuan)}</small></span>
       </label>`)
     .join("");
-  optT.innerHTML = H.tambahan
+  optT.innerHTML = B.tambahan
     .map((t) => `
       <label class="opt-card">
         <input type="checkbox" name="tambah" value="${t.id}" />
-        <span>${esc(t.nama)}<small>+${rupiah(t.harga)}</small></span>
+        <span>${esc(t.nama)}</span>
       </label>`)
     .join("");
 
-  const svc = () => H.layanan.find((l) => l.id === $('input[name="layanan"]:checked').value);
-  let shown = 0, animRaf = 0;
-  const priceEl = $("#sHarga");
-  function animatePrice(to) {
-    cancelAnimationFrame(animRaf);
-    if (reduce) { shown = to; priceEl.textContent = rupiah(to); return; }
-    const from = shown, t0 = performance.now();
-    const step = (t) => {
-      const p = Math.min(1, (t - t0) / 450);
-      shown = from + (to - from) * (1 - Math.pow(1 - p, 3));
-      priceEl.textContent = rupiah(shown);
-      if (p < 1) animRaf = requestAnimationFrame(step);
-    };
-    animRaf = requestAnimationFrame(step);
-  }
+  const svc = () => B.layanan.find((l) => l.id === $('input[name="layanan"]:checked').value);
+  let lastSvc = null;
 
   function updateBuilder(clap = true) {
     const s = svc();
-    if (+qty.min !== s.min || +qty.max !== s.maks) {
-      qty.min = s.min; qty.max = s.maks;
-      if (+qty.value < s.min || +qty.value > s.maks) qty.value = s.min;
+    if (s !== lastSvc) {
+      qty.min = s.min; qty.max = s.maks; qty.value = s.awal ?? s.min;
+      lastSvc = s;
     }
     const n = +qty.value;
     qty.style.setProperty("--fill", ((n - s.min) / Math.max(1, s.maks - s.min)) * 100 + "%");
     qtyOut.textContent = `${n} ${s.satuan}`;
-    const adds = $$('input[name="tambah"]:checked', optT).map((c) => H.tambahan.find((t) => t.id === c.value));
-    const total = s.dasar + s.perUnit * (n - s.min) + adds.reduce((a, t) => a + t.harga, 0);
+    const adds = $$('input[name="tambah"]:checked', optT).map((c) => B.tambahan.find((t) => t.id === c.value));
+    const tgl = $("#tgl").value;
+    const cat = $("#cat").value.trim();
+    const ref = [...picks].sort((a, b) => a - b).map(frameNo);
 
     $("#sLayanan").textContent = s.nama;
     $("#sQty").textContent = `${n} ${s.satuan}`;
     $("#sAdd").textContent = adds.length ? adds.map((a) => a.nama).join(", ") : "—";
-    animatePrice(total);
+    $("#sTgl").textContent = tgl ? tglFmt(tgl) : "—";
+    $("#sRef").textContent = ref.length ? ref.join(", ") : "—";
 
     if (clap && !reduce) {
       slate.classList.remove("is-clap");
@@ -337,20 +338,15 @@
       slate.classList.add("is-clap");
     }
 
-    // susun pesan brief
-    const tgl = $("#tgl").value;
-    const cat = $("#cat").value.trim();
-    const ref = [...picks].sort((a, b) => a - b).map(frameNo);
     const lines = [
-      "Halo Aura Project, saya mau tanya jadwal & penawaran.",
+      "Halo Aura Project, saya mau tanya jadwal & harga.",
       "",
       `Pekerjaan: ${s.nama}`,
       `Durasi/jumlah: ${n} ${s.satuan}`,
       adds.length ? `Tambahan: ${adds.map((a) => a.nama).join(", ")}` : null,
-      tgl ? `Tanggal: ${new Date(tgl + "T00:00").toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}` : null,
+      tgl ? `Tanggal: ${tglFmt(tgl)}` : null,
       cat ? `Catatan: ${cat}` : null,
       ref.length ? `Referensi frame dari contact sheet: ${ref.join(", ")}` : null,
-      `Estimasi di website: mulai ${rupiah(total)}`,
     ].filter((l) => l !== null).join("\n");
 
     const send = $("#sendBrief");

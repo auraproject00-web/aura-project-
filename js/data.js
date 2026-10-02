@@ -2,7 +2,7 @@
  * ===========================================================
  *  AURA PROJECT — semua konten yang sering diubah ada di sini.
  *  Tidak perlu menyentuh index.html / main.js untuk:
- *  kontak, daftar karya, foto contact sheet, harga paket.
+ *  kontak, daftar karya, foto contact sheet, pilihan form brief.
  * ===========================================================
  */
 
@@ -17,108 +17,108 @@ window.AURA = {
   },
 
   /*
-   * INDEKS KARYA
+   * INDEKS KARYA (urutan di sini = urutan di website)
    * jenis: "foto" | "video"
-   * gambar: path gambar, atau null → tampil sebagai bingkai kosong.
-   * contoh: true → muncul label "CONTOH". Hapus / ganti ke false
-   *         setelah diisi karya asli. Jangan tayangkan karya fiktif ke klien.
+   * gambar: path gambar di assets/img/, atau null → bingkai kosong.
    */
   karya: [
+    {
+      judul: "Lampu Jalan",
+      klien: "Personal",
+      jenis: "foto",
+      tahun: 2025,
+      gambar: "assets/img/malam.jpg",
+      ringkas: "Blue hour di depan bangunan lama. Langit tinggal ungu, satu lampu jalan yang mengambil alih warna.",
+      kredit: ["Foto & edit: Aura Project"],
+    },
+    {
+      judul: "Jembatan Pakis",
+      klien: "Personal",
+      jenis: "foto",
+      tahun: 2025,
+      gambar: "assets/img/hutan.jpg",
+      ringkas: "Cahaya pagi tembus kanopi pinus. Jalur bata membawa mata langsung ke lengkung jembatan.",
+      kredit: ["Foto & edit: Aura Project"],
+    },
+    {
+      judul: "Sinyal Masuk",
+      klien: "Personal",
+      jenis: "foto",
+      tahun: 2025,
+      gambar: "assets/img/rel.jpg",
+      ringkas: "Kamera sejajar rel, titik hilang tepat di tengah. Warna sore dibiarkan pucat dan hangat.",
+      kredit: ["Foto & edit: Aura Project"],
+    },
+    {
+      judul: "Musim Kering",
+      klien: "Personal",
+      jenis: "foto",
+      tahun: 2025,
+      gambar: "assets/img/bukit.jpg",
+      ringkas: "Air surut, padang rumput mengambil alih. Bukit karst berlapis kabut di kejauhan.",
+      kredit: ["Foto & edit: Aura Project"],
+    },
+    {
+      judul: "Tanggul",
+      klien: "Personal",
+      jenis: "foto",
+      tahun: 2025,
+      gambar: "assets/img/waduk.jpg",
+      ringkas: "Ultra-wide dari atas bendungan. Awan siang hari jadi setengah frame.",
+      kredit: ["Foto: Aura Project"],
+    },
     {
       judul: "Garis Senja",
       klien: "Personal",
       jenis: "foto",
       tahun: 2025,
       gambar: "assets/img/senja.jpg",
-      ringkas: "Siluet di ambang gelap. Slow shutter, tanpa flash — biar gerak yang bercerita.",
+      ringkas: "Siluet di ambang gelap. Slow shutter, tanpa flash, biar gerak yang bercerita.",
       kredit: ["Foto & edit: Aura Project"],
-      contoh: false,
     },
     {
       judul: "Jalan Belum Jadi",
       klien: "Personal",
-      jenis: "video",
+      jenis: "foto",
       tahun: 2025,
       gambar: "assets/img/jalan.jpg",
       ringkas: "Ride log di jalan yang belum diresmikan. Action cam, ultra-wide, grading hangat.",
-      kredit: ["Kamera & edit: Aura Project"],
-      contoh: false,
-    },
-    {
-      judul: "Peluncuran Produk",
-      klien: "Nama Klien",
-      jenis: "video",
-      tahun: 2026,
-      gambar: null,
-      ringkas: "Video teaser 30 detik + 6 potongan vertikal untuk Reels/TikTok.",
-      kredit: ["Sutradara & DOP", "Editor & colorist"],
-      contoh: true,
-    },
-    {
-      judul: "Katalog Musim Hujan",
-      klien: "Nama Brand",
-      jenis: "foto",
-      tahun: 2026,
-      gambar: null,
-      ringkas: "40 foto produk di studio dan lokasi, siap pakai untuk marketplace.",
-      kredit: ["Fotografer", "Retoucher"],
-      contoh: true,
-    },
-    {
-      judul: "Resepsi R & D",
-      klien: "Pasangan",
-      jenis: "video",
-      tahun: 2026,
-      gambar: null,
-      ringkas: "Film pernikahan 4 menit dan same-day edit diputar di malam acara.",
-      kredit: ["2 kamera", "Drone"],
-      contoh: true,
-    },
-    {
-      judul: "Potret Tim",
-      klien: "Nama Perusahaan",
-      jenis: "foto",
-      tahun: 2026,
-      gambar: null,
-      ringkas: "Headshot 25 orang dalam satu hari, latar dan cahaya konsisten.",
-      kredit: ["Fotografer", "Lighting"],
-      contoh: true,
+      kredit: ["Foto & edit: Aura Project"],
     },
   ],
 
   /*
    * CONTACT SHEET (galeri film-strip).
-   * gambar: null → frame kosong. Ganti dengan path foto kamu.
    */
   contactSheet: [
-    { gambar: "assets/img/senja.jpg", ket: "Senja, slow shutter" },
-    { gambar: "assets/img/jalan.jpg", ket: "Ride log, action cam" },
-    { gambar: null, ket: "Frame kosong" },
-    { gambar: null, ket: "Frame kosong" },
-    { gambar: null, ket: "Frame kosong" },
-    { gambar: null, ket: "Frame kosong" },
-    { gambar: null, ket: "Frame kosong" },
-    { gambar: null, ket: "Frame kosong" },
+    { gambar: "assets/img/malam.jpg", ket: "Blue hour" },
+    { gambar: "assets/img/hutan.jpg", ket: "Kanopi pinus" },
+    { gambar: "assets/img/rel.jpg", ket: "Titik hilang" },
+    { gambar: "assets/img/bukit.jpg", ket: "Karst & kabut" },
+    { gambar: "assets/img/waduk.jpg", ket: "Ultra-wide" },
+    { gambar: "assets/img/senja.jpg", ket: "Slow shutter" },
+    { gambar: "assets/img/jalan.jpg", ket: "Action cam" },
   ],
 
   /*
-   * HARGA — CONTOH, WAJIB DISESUAIKAN sebelum website dipublikasikan.
-   * Semua angka dalam Rupiah. Estimator menampilkan rentang "mulai dari".
+   * PILIHAN DI FORM BRIEF (tanpa harga, harga lewat kontak).
    */
-  harga: {
+  brief: {
     layanan: [
-      { id: "event", nama: "Dokumentasi Acara", satuan: "jam", dasar: 750000, perUnit: 350000, min: 2, maks: 12 },
-      { id: "produk", nama: "Foto Produk", satuan: "produk", dasar: 500000, perUnit: 75000, min: 5, maks: 100 },
-      { id: "wedding", nama: "Prewedding / Wedding", satuan: "jam", dasar: 2500000, perUnit: 450000, min: 3, maks: 12 },
-      { id: "compro", nama: "Video Profil / Iklan", satuan: "hari syuting", dasar: 4000000, perUnit: 2500000, min: 1, maks: 5 },
-      { id: "konten", nama: "Konten Sosmed", satuan: "video", dasar: 600000, perUnit: 400000, min: 3, maks: 30 },
+      { id: "event", nama: "Dokumentasi Acara", satuan: "jam", min: 2, maks: 12, awal: 4 },
+      { id: "produk", nama: "Foto Produk", satuan: "produk", min: 1, maks: 100, awal: 10 },
+      { id: "wedding", nama: "Prewedding / Wedding", satuan: "jam", min: 2, maks: 12, awal: 6 },
+      { id: "compro", nama: "Video Profil / Iklan", satuan: "hari syuting", min: 1, maks: 5, awal: 1 },
+      { id: "konten", nama: "Konten Sosmed", satuan: "video", min: 1, maks: 30, awal: 4 },
+      { id: "lain", nama: "Lainnya", satuan: "jam", min: 1, maks: 12, awal: 2 },
     ],
     tambahan: [
-      { id: "drone", nama: "Drone", harga: 1000000 },
-      { id: "sde", nama: "Same-day edit", harga: 1500000 },
-      { id: "grade", nama: "Color grading sinematik", harga: 750000 },
-      { id: "raw", nama: "File RAW / footage mentah", harga: 300000 },
-      { id: "kru", nama: "Kamera kedua", harga: 900000 },
+      { id: "drone", nama: "Drone" },
+      { id: "sde", nama: "Same-day edit" },
+      { id: "grade", nama: "Color grading sinematik" },
+      { id: "raw", nama: "File RAW / footage mentah" },
+      { id: "kru", nama: "Kamera kedua" },
+      { id: "vertikal", nama: "Versi vertikal 9:16" },
     ],
   },
 };
