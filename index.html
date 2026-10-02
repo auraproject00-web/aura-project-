@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aura Project — Video & Fotografi</title>
+  <meta name="description" content="Aura Project: jasa video dan fotografi. Dokumentasi acara, foto produk, prewedding, video profil, dan konten sosial media." />
+  <meta name="theme-color" content="#0f0e0c" />
+  <meta property="og:title" content="Aura Project — Video & Fotografi" />
+  <meta property="og:description" content="Merekam cahaya, gerak, dan cerita apa adanya." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip" href="#karya">Lewati ke karya</a>
+
+  <!-- ============ TOP BAR / HUD ============ -->
+  <header class="bar" id="bar">
+    <a class="brand" href="#top" aria-label="Aura Project, ke atas">
+      <span class="brand-mark" aria-hidden="true"></span>
+      AURA<span class="brand-slash">/</span>PROJECT
+    </a>
+    <div class="rec mono" aria-hidden="true">
+      <span class="rec-dot"></span> REC <span id="tc">00:00:00:00</span>
+    </div>
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="#karya">Karya</a>
+      <a href="#sheet">Contact Sheet</a>
+      <a href="#paket">Paket</a>
+      <a href="#proses">Proses</a>
+      <a href="#kontak" class="nav-cta">Kontak</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO / VIEWFINDER ============ -->
+    <section class="hero" id="hero" aria-label="Pembuka">
+      <div class="hero-img hero-img--soft" aria-hidden="true"></div>
+      <div class="hero-img hero-img--sharp" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+
+      <div class="vf" aria-hidden="true">
+        <span class="vf-c vf-tl"></span><span class="vf-c vf-tr"></span>
+        <span class="vf-c vf-bl"></span><span class="vf-c vf-br"></span>
+        <span class="vf-thirds"></span>
+        <span class="vf-point" id="vfPoint"></span>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow mono">Video &amp; Fotografi — <span data-kota></span></p>
+        <h1 class="hero-title">
+          Kami mengejar <em>cahaya</em><br />
+          yang biasanya<br />
+          terlewat.
+        </h1>
+        <p class="hero-sub">Dokumentasi acara, foto produk, wedding, dan video brand. Dikerjakan oleh tim kecil, jadi yang datang ke lokasi adalah orang yang juga mengedit hasilnya.</p>
+        <div class="hero-actions">
+          <a class="btn btn--solid" href="#paket">Rakit paket &amp; estimasi</a>
+          <a class="btn btn--line" href="#karya">Lihat karya</a>
+        </div>
+      </div>
+
+      <dl class="hud mono" aria-label="Pengaturan kamera (dekoratif)">
+        <div><dt>ISO</dt><dd id="hudIso">800</dd></div>
+        <div><dt>SHUTTER</dt><dd id="hudSh">1/50</dd></div>
+        <div><dt>F</dt><dd id="hudF">1.8</dd></div>
+        <div><dt>WB</dt><dd id="hudWb">5600K</dd></div>
+        <div class="hud-meter"><dt>EV</dt><dd><span class="meter" id="hudEv"><i></i></span></dd></div>
+      </dl>
+
+      <p class="hero-hint mono" aria-hidden="true">Gerakkan kursor untuk fokus</p>
+    </section>
+
+    <!-- ============ INDEKS KARYA ============ -->
+    <section class="section" id="karya" aria-labelledby="karya-h">
+      <header class="sec-head">
+        <span class="sec-no mono">01</span>
+        <h2 id="karya-h">Indeks karya</h2>
+        <div class="filter" role="group" aria-label="Saring jenis karya">
+          <button class="chip is-on" data-filter="semua" aria-pressed="true">Semua <sup data-count="semua"></sup></button>
+          <button class="chip" data-filter="foto" aria-pressed="false">Foto <sup data-count="foto"></sup></button>
+          <button class="chip" data-filter="video" aria-pressed="false">Video <sup data-count="video"></sup></button>
+        </div>
+      </header>
+
+      <div class="index" role="list" id="indexList"></div>
+      <div class="peek" id="peek" aria-hidden="true"><div class="peek-in"></div></div>
+    </section>
+
+    <!-- ============ CONTACT SHEET ============ -->
+    <section class="section sheet-sec" id="sheet" aria-labelledby="sheet-h">
+      <header class="sec-head">
+        <span class="sec-no mono">02</span>
+        <h2 id="sheet-h">Contact sheet</h2>
+        <p class="sec-note">Seret untuk menggulung. Klik frame untuk ditandai: begitu cara kami memilih foto bersama klien.</p>
+      </header>
+
+      <div class="strip-wrap">
+        <div class="strip" id="strip" tabindex="0" aria-label="Galeri film strip, gunakan panah kiri kanan"></div>
+      </div>
+      <div class="sheet-foot mono">
+        <span>AURA 400 · <span id="pickCount">0</span> frame dipilih</span>
+        <button class="link-btn" id="pickClear" type="button">Hapus tanda</button>
+      </div>
+    </section>
+
+    <!-- ============ PAKET / ESTIMATOR ============ -->
+    <section class="section" id="paket" aria-labelledby="paket-h">
+      <header class="sec-head">
+        <span class="sec-no mono">03</span>
+        <h2 id="paket-h">Rakit paket</h2>
+        <p class="sec-note">Pilih kebutuhanmu, angka di kanan berubah langsung. Estimasi mulai dari. Harga final kami kirim setelah membaca brief.</p>
+      </header>
+
+      <form class="builder" id="builder" onsubmit="return false">
+        <div class="b-col">
+          <fieldset class="b-step">
+            <legend><span class="mono">A</span> Jenis pekerjaan</legend>
+            <div class="opts" id="optLayanan"></div>
+          </fieldset>
+
+          <fieldset class="b-step">
+            <legend><span class="mono">B</span> Durasi / jumlah</legend>
+            <div class="qty">
+              <input type="range" id="qty" min="1" max="10" value="2" aria-describedby="qtyOut" />
+              <output id="qtyOut" class="mono" for="qty"></output>
+            </div>
+          </fieldset>
+
+          <fieldset class="b-step">
+            <legend><span class="mono">C</span> Tambahan</legend>
+            <div class="opts opts--add" id="optTambah"></div>
+          </fieldset>
+
+          <fieldset class="b-step">
+            <legend><span class="mono">D</span> Tanggal &amp; catatan <span class="opt">(opsional)</span></legend>
+            <div class="b-fields">
+              <label>Tanggal acara
+                <input type="date" id="tgl" />
+              </label>
+              <label>Catatan singkat
+                <input type="text" id="cat" maxlength="160" placeholder="mis. launching di Bandung, 150 tamu" />
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <aside class="slate" aria-live="polite">
+          <div class="slate-sticks" aria-hidden="true"></div>
+          <div class="slate-body">
+            <div class="slate-row mono"><span>PROD.</span><span id="sLayanan">—</span></div>
+            <div class="slate-row mono"><span>DURASI</span><span id="sQty">—</span></div>
+            <div class="slate-row mono"><span>TAKE</span><span id="sAdd">—</span></div>
+            <div class="slate-price">
+              <span class="mono slate-lbl">Estimasi mulai</span>
+              <strong id="sHarga">Rp 0</strong>
+            </div>
+            <a class="btn btn--solid btn--block" id="sendBrief" href="#" target="_blank" rel="noopener">Kirim brief</a>
+            <p class="slate-fine">Belum termasuk transport &amp; akomodasi luar kota. DP 30% untuk mengunci tanggal.</p>
+          </div>
+        </aside>
+      </form>
+    </section>
+
+    <!-- ============ PROSES ============ -->
+    <section class="section" id="proses" aria-labelledby="proses-h">
+      <header class="sec-head">
+        <span class="sec-no mono">04</span>
+        <h2 id="proses-h">Proses</h2>
+      </header>
+
+      <ol class="steps">
+        <li>
+          <span class="tc mono">00:00</span>
+          <h3>Brief</h3>
+          <p>Ngobrol 20 menit: tujuan, siapa penontonnya, dan di mana hasilnya bakal dipakai. Dari situ kami kirim penawaran tertulis.</p>
+        </li>
+        <li>
+          <span class="tc mono">01:00</span>
+          <h3>Pra-produksi</h3>
+          <p>Shot list, moodboard, cek lokasi, jadwal per jam. Kalau ada yang belum jelas, kami tanya sekarang supaya tidak menebak di lokasi.</p>
+        </li>
+        <li>
+          <span class="tc mono">02:00</span>
+          <h3>Produksi</h3>
+          <p>Hari H. Kami datang lebih awal, cek cahaya dan suara, lalu kerja tanpa mengganggu jalannya acara.</p>
+        </li>
+        <li>
+          <span class="tc mono">03:00</span>
+          <h3>Pasca</h3>
+          <p>Seleksi, edit, grading, satu sampai dua putaran revisi. File final dikirim lewat tautan, sudah dalam ukuran untuk tiap platform.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ TENTANG ============ -->
+    <section class="section about" id="tentang" aria-labelledby="tentang-h">
+      <figure class="about-fig">
+        <img src="assets/img/jalan.jpg" alt="Kru Aura Project merekam perjalanan motor dengan action cam" loading="lazy" width="1600" height="1200" />
+        <figcaption class="mono">FIG. 01 — di lapangan, 2025</figcaption>
+      </figure>
+      <div class="about-copy">
+        <span class="sec-no mono">05</span>
+        <h2 id="tentang-h">Tentang Aura</h2>
+        <p class="lead">Aura Project adalah studio video dan foto berskala kecil, dan kami sengaja menjaganya tetap kecil.</p>
+        <p>Sekarang kami mengerjakan foto dan video untuk brand, acara, dan pasangan. Gaya kami sederhana: cahaya natural, warna yang tidak berlebihan, dan momen yang tidak diatur-atur.</p>
+        <ul class="kit mono">
+          <li><span>Edit</span> Premiere Pro · After Effects · Lightroom</li>
+          <li><span>Format</span> 4K · vertikal 9:16 · RAW</li>
+          <li><span>Area</span> <span><span data-kota></span> &amp; luar kota</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ KONTAK ============ -->
+    <section class="contact" id="kontak" aria-labelledby="kontak-h">
+      <p class="eyebrow mono">06 — Kontak</p>
+      <h2 id="kontak-h" class="contact-title">Ada yang mau<br />direkam?</h2>
+      <a class="contact-mail" id="mailBig" href="#"></a>
+      <div class="contact-links mono">
+        <a id="igLink" href="#" target="_blank" rel="noopener"></a>
+        <a id="waLink" href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot mono">
+    <span>© <span id="yr"></span> Aura Project</span>
+    <span>— END OF REEL —</span>
+    <a href="#top">Ke atas ↑</a>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <dialog class="lb" id="lb" aria-labelledby="lbTitle">
+    <button class="lb-x" id="lbClose" type="button" aria-label="Tutup">×</button>
+    <div class="lb-media" id="lbMedia"></div>
+    <div class="lb-info">
+      <p class="mono lb-meta" id="lbMeta"></p>
+      <h3 id="lbTitle"></h3>
+      <p id="lbText"></p>
+      <ul class="mono lb-credits" id="lbCredits"></ul>
+      <div class="lb-nav">
+        <button class="link-btn" id="lbPrev" type="button">← Sebelumnya</button>
+        <button class="link-btn" id="lbNext" type="button">Berikutnya →</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
