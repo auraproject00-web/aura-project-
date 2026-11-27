@@ -67,6 +67,7 @@
     if (window.AURA_INTRO === "done") return;
     window.AURA_INTRO = "done";
     window.dispatchEvent(new Event("aura:intro-done"));
+    document.removeEventListener("keydown", onEsc);
     try { sessionStorage.setItem("aura-intro", "1"); } catch (e) {}
     root.classList.remove("intro-lock");
     intro.classList.add("is-gone");
@@ -94,7 +95,9 @@
     if (e.key === " " || e.key === "Enter") { e.preventDefault(); setHolding(false); }
   });
   hold.addEventListener("click", (e) => e.preventDefault());
-  intro.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  // Esc di level dokumen: berfungsi walau fokus belum masuk ke intro
+  function onEsc(e) { if (e.key === "Escape") close(); }
+  document.addEventListener("keydown", onEsc);
   skip.addEventListener("click", close);
 
   // parallax halus mengikuti kursor

@@ -101,16 +101,20 @@
     });
   } else if (!reduce) {
     // layar sentuh: titik fokus bergerak pelan sendiri, sentuhan memindahkannya
-    let touchUntil = 0;
+    let touchUntil = 0, driftRaf = 0;
     hero.addEventListener("pointerdown", (e) => { touchUntil = performance.now() + 3500; focusAt(e.clientX, e.clientY); });
     const drift = (t) => {
-      if (t > touchUntil && hero.getBoundingClientRect().bottom > 0) {
+      if (t > touchUntil) {
         const r = hero.getBoundingClientRect();
         focusAt(r.left + r.width * (0.55 + 0.25 * Math.sin(t / 2600)), r.top + r.height * (0.35 + 0.12 * Math.sin(t / 1700)));
       }
-      requestAnimationFrame(drift);
+      driftRaf = requestAnimationFrame(drift);
     };
-    requestAnimationFrame(drift);
+    // animasi berhenti saat hero tidak terlihat, supaya hemat baterai
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !driftRaf) driftRaf = requestAnimationFrame(drift);
+      else if (!e.isIntersecting && driftRaf) { cancelAnimationFrame(driftRaf); driftRaf = 0; }
+    }).observe(hero);
   }
 
   /* ---------- HERO: huruf bermunculan acak setelah intro ---------- */
@@ -212,6 +216,8 @@
   const counts = { semua: D.karya.length, foto: 0, video: 0 };
   D.karya.forEach((k) => counts[k.jenis]++);
   $$("[data-count]").forEach((el) => (el.textContent = counts[el.dataset.count]));
+  // sembunyikan filter yang belum punya karya (mis. Video); muncul lagi otomatis begitu ada
+  $$(".chip").forEach((c) => { if (c.dataset.filter !== "semua" && !counts[c.dataset.filter]) c.hidden = true; });
 
   $$(".chip").forEach((chip) =>
     chip.addEventListener("click", () => {
@@ -439,7 +445,8 @@
   }
 
   $("#builder").addEventListener("input", (e) => updateBuilder(e.target.type !== "text" && e.target.type !== "date"));
-  $("#tgl").min = new Date().toISOString().slice(0, 10);
+  const today = new Date(); // tanggal lokal pengunjung, bukan UTC
+  $("#tgl").min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
   syncPicks();
   pickCount.textContent = picks.size;
 
